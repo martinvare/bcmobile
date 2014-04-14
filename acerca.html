@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bolsa de Cereales </title>
+		<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="themes/bc.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        
+        <script language="javascript">
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/acerca-xml.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var title_xml = $(xml).find('acerca').text();
+					$( "#tit_xml" ).append(title_xml);
+
+                    
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+        </script>		
+        
+	</head>
+	<body>
+		
+
+ 
+        
+ <div data-role="page" id="pageone">
+ 
+  <div data-role="header">
+    <h1>Acerca de La Bolsa de Cereales</h1>
+        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
+  </div>
+         
+
+  
+    <div data-role="main" class="ui-content" id="tit_xml">
+    </div><!--main-->
+    
+    <a href="index.html" class="ui-btn ui-icon-back ui-btn-icon-left">Volver</a>
+            
+    </div>
+
+</body>
+</html>

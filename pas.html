@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bolsa de Cereales </title>
+		<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="themes/bc.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+		<script type="text/javascript" language="javascript">
+		Number.prototype.formatMoney = function(c, d, t){
+		var n = this, 
+			c = isNaN(c = Math.abs(c)) ? 2 : c, 
+			d = d == undefined ? "." : d, 
+			t = t == undefined ? "," : t, 
+			s = n < 0 ? "-" : "", 
+			i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+			j = (j = i.length) > 3 ? j % 3 : 0;
+		   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+		 };		
+
+		function calcula(){
+			region = document.getElementById('region').value;
+			cereal = document.getElementById('cultivo').value;
+			//alert(cereal);
+			//alert(region);
+			$( "#cerealzona").text(cereal + ": " +  window[region + "_value"]);
+
+			for (var i=1; i<8; i++) {
+				valor = window[cereal + "_" + region + "_attr_" + i];
+				$( "#tz"+ i).text(Number(valor).formatMoney(0, '.', ','));
+				$( "#tp"+ i).text(Number(window[cereal + "_16_attr_" + i]).formatMoney(0, '.', ','));
+			}
+			//alert(TRIGO_1_attr_1);
+		}
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/pagrs-xml.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var title_xml = $(xml).find('title').text();
+					$( "#tit_xml" ).append(title_xml);
+                    
+					$(xml).find('zona').each(function(){
+						nzona = $(this).find('nombre').text();
+						nzona_id = $(this).find('nombre').attr("id");
+						window[nzona_id + "_value"] = $(this).find('nombre').text();
+						if(nzona_id != 1 && nzona_id != 16) $("#region").append('<option value="' + nzona_id + '">' + nzona + '</option>');
+
+                        var valor = {};
+						$(this).find('cereal').each(function(){
+							var cerealName = $(this).attr("name");
+                            if(nzona == "NOA" && cerealName != "TRIGO")	$("#cultivo").append('<option value="' + cerealName + '">' + cerealName + '</option>');
+                            for (var i=1; i<8; i++) {
+								window[cerealName + "_" + nzona_id + "_attr_" + i] = $(this).find('atributo').eq(i).text();
+							}
+                        });
+                    });
+					calcula();
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+        </script>
+
+	</head>
+	<body>
+		
+
+ 
+        
+ <div data-role="page" id="pageone">
+ 
+  <div data-role="header">
+    <h1>Panorama Agricola Semanal</h1>
+        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
+ </div>
+         
+
+  
+   <div data-role="main" class="ui-content">
+    <h4 id="tit_xml"></h4>
+    
+   <form method="post" action="">
+   
+    <label for="cultivo">SELECCIONE CULTIVO</label>
+    <select id="cultivo" name="cultivo" data-theme="a" onChange="calcula()">
+    <option value="TRIGO">TRIGO</option>
+    </select>
+    
+    <label for="region">SELECCIONE REGIÓN</label>
+    <select id="region" name="region" data-theme="a" onChange="calcula()">
+    <option value="1">NOA</option>
+    </select>
+     
+     <h3 id="cerealzona">Centro N Cba-TRIGO: Centro-norte  de Córdoba</h3>
+ </form>
+ 
+ <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Total País</h1>
+      
+     <table data-role="table"  class="ui-responsive ui-shadow datos" id="myTable" >
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intención de siembra</td>
+          <td id="tp1"></td>        
+        </tr>
+        <tr>
+          <td>% sembrado</td>
+          <td id="tp2"></td>        
+        </tr>
+        <tr>
+          <td>Superficie sembrada</td>
+          <td id="tp3"></td>        
+        </tr>
+        <tr>
+          <td>% cosechado</td>
+          <td id="tp4"></td>        
+        </tr>
+        <tr>
+          <td>Superficie cosechada</td>
+          <td id="tp5"></td>        
+        </tr>
+         <tr>
+          <td>Rinde (qq)</td>
+          <td id="tp6"></td>        
+        </tr>
+        <tr>
+          <td>Producción (ton)</td>
+          <td  id="tp7"></td>        
+        </tr>
+ </tbody>
+    </table>
+    </div>
+    
+    
+     <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Total Zona</h1>
+      
+     <table data-role="table"  class="ui-responsive ui-shadow datos" id="myTable" >
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intención de siembra</td>
+          <td id="tz1"></td>        
+        </tr>
+                <tr>
+          <td>% sembrado</td>
+          <td id="tz2"></td>        
+        </tr>
+        <tr>
+          <td>Superficie sembrada</td>
+          <td id="tz3"></td>        
+        </tr>
+        <tr>
+          <td>% cosechado</td>
+          <td id="tz4"></td>        
+        </tr>
+        <tr>
+          <td>Superficie cosechada</td>
+          <td id="tz5"></td>        
+        </tr>
+         <tr>
+          <td>Rinde (qq)</td>
+          <td id="tz6"></td>        
+        </tr>
+        <tr>
+          <td>Producción (ton)</td>
+          <td id="tz7"></td>        
+        </tr>
+ </tbody>
+    </table>
+    </div>
+
+  </div><!--main-->
+	
+        	
+
+
+            
+            
+	</div>
+	</body>
+</html>
