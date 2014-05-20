@@ -1,0 +1,7 @@
+header { text-align:center; margin-top:10px; margin-bottom:0}
+h3.foot { font-size:0.8em !important} 
+
+table.datos th {border-bottom: 1px solid #d6d6d6;}
+table.datos tr:nth-child(even) {background:#E5E9E9;}
+table.datos tr:last-child {background:#6C9;}
+table.datos thead { display:none}

@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bolsa de Cereales </title>
+		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="themes/bc.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+        
+    	
+        
+        
+    <script>
+    $(document).ready(function()
+{
+	$(".tab_content").hide();
+	$("ul.tabs li:first").addClass("active").show();
+	$(".tab_content:first").show();
+
+	$("ul.tabs li").click(function()
+       {
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content").hide();
+
+		var activeTab = $(this).find("a").attr("href");
+		$(activeTab).fadeIn();
+		return false;
+	});
+}); 
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/flash-cotizaciones.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var pubDate = "Datos al " + $(xml).find('pubDate').text();
+					var escribe = '';
+					$( "#pub_date" ).append(pubDate);
+                    
+					$(xml).find('cereal').each(function(){
+						ncereal = $(this).find('nombre').text();
+						
+						$(this).find('cotizacion').each(function(){
+							
+								//$(this).find('nombre').attr("id")
+									//alert($(this).find('titulo').attr("id"));
+									$( "#" + $(this).find('titulo').attr("id") ).append($(this).find('titulo').text());
+									$( "#" + $(this).find('valor').attr("id") ).append($(this).find('valor').text());
+									$( "#" + $(this).find('relacion_anterior').attr("id") ).append('<img src="imagenes/'+$(this).find('relacion_anterior').text()+'.png" />');
+									$( "#" + $(this).find('fecha').attr("id") ).append($(this).find('fecha').text());
+								
+	                    });
+                    });
+					//$("#escribediv" ).append(escribe);
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+	
+	</script>
+        
+	</head>
+	<body>
+		
+
+ 
+        
+ <div data-role="page" id="pageone">
+ 
+  <div data-role="header">
+    <h1>Flash de Cotizaciones
+    <a href="flash.html" class="ids1">Español</a>
+        <a href="flash_en.html" class="ids2">English</a>
+    </h1>
+        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
+  </div>
+         
+
+  
+    <div data-role="main" class="ui-content" id="tit_xml">
+    
+    
+    <div id="flash-cotiz-tab">
+
+	<h4 id="pub_date"></h4>
+
+<ul class="tabs">
+    <li><a href="#trigo">TRIGO</a></li>
+    <li><a href="#maiz">MAÍZ</a></li>
+    <li><a href="#soja">SOJA</a></li>
+    <li><a href="#girasol">GIRASOL</a></li>
+</ul>
+
+<div class="tab_container">
+    <div id="trigo" class="tab_content">
+        <div class="cotiztable-item1">Disponible</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Mercado </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="t_1_tit"></div></td>
+            <td><div id="t_1_val"></div></td>
+            <td><div id="t_1_rel"></div></td>
+            <td><div id="t_1_fec"></div></td>
+          </tr>
+          <tr>
+            <td><div id="t_2_tit"></div></td>
+            <td><div id="t_2_val"></div></td>
+            <td><div id="t_2_rel"></div></td>
+            <td><div id="t_2_fec"></div></td>
+          </tr>
+        </table>
+		
+        <div class="cotiztable-item1">Futuros MATba</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="t_3_tit"></div></td>
+            <td><div id="t_3_val"></div></td>
+            <td><div id="t_3_rel"></div></td>
+            <td><div id="t_3_fec"></div></td>
+          </tr>
+        </table>
+        
+         <div class="cotiztable-item1">FOB MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Embarque </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="t_4_tit"></div></td>
+            <td><div id="t_4_val"></div></td>
+            <td><div id="t_4_rel"></div></td>
+            <td><div id="t_4_fec"></div></td>
+          </tr>
+        </table>
+        
+        <div class="cotiztable-item1">CBOT</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="t_5_tit"></div></td>
+            <td><div id="t_5_val"></div></td>
+            <td><div id="t_5_rel"></div></td>
+            <td><div id="t_5_fec"></div></td>
+          </tr>
+        </table>
+        
+        <div class="cotiztable-item1">Precios MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Resol. 42/07	</td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="t_6_tit"></div></td>
+            <td><div id="t_6_val"></div></td>
+            <td><div id="t_6_rel"></div></td>
+            <td><div id="t_6_fec"></div></td>
+          </tr>
+        </table>
+        
+        
+    </div>
+    <div id="tab2" class="tab_content">
+       <!--Content-->
+	</div>
+</div>
+
+<div class="tab_container">
+    <div id="maiz" class="tab_content">
+        <!--Content-->
+        <div class="cotiztable-item1">Disponible</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Mercado </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="m_1_tit"></div></td>
+            <td><div id="m_1_val"></div></td>
+            <td><div id="m_1_rel"></div></td>
+            <td><div id="m_1_fec"></div></td>
+          </tr>
+          <tr>
+            <td><div id="m_2_tit"></div></td>
+            <td><div id="m_2_val"></div></td>
+            <td><div id="m_2_rel"></div></td>
+            <td><div id="m_2_fec"></div></td>
+          </tr>
+        </table>
+		
+        <div class="cotiztable-item1">Futuros MATba</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="m_3_tit"></div></td>
+            <td><div id="m_3_val"></div></td>
+            <td><div id="m_3_rel"></div></td>
+            <td><div id="m_3_fec"></div></td>
+          </tr>
+        </table>
+        
+         <div class="cotiztable-item1">FOB MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Embarque </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="m_4_tit"></div></td>
+            <td><div id="m_4_val"></div></td>
+            <td><div id="m_4_rel"></div></td>
+            <td><div id="m_4_fec"></div></td>
+          </tr>
+        </table>
+        
+        <div class="cotiztable-item1">CBOT</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="m_5_tit"></div></td>
+            <td><div id="m_5_val"></div></td>
+            <td><div id="m_5_rel"></div></td>
+            <td><div id="m_5_fec"></div></td>
+          </tr>
+        </table>
+        
+        <div class="cotiztable-item1">Precios MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Resol. 42/07	</td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="m_6_tit"></div></td>
+            <td><div id="m_6_val"></div></td>
+            <td><div id="m_6_rel"></div></td>
+            <td><div id="m_6_fec"></div></td>
+          </tr>
+        </table>
+ 	</div>
+</div>
+
+<div class="tab_container">
+    <div id="soja" class="tab_content">
+        <!--Content-->
+        <div class="cotiztable-item1">Disponible</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Mercado </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="s_1_tit"></div></td>
+            <td><div id="s_1_val"></div></td>
+            <td><div id="s_1_rel"></div></td>
+            <td><div id="s_1_fec"></div></td>
+          </tr>
+          <tr>
+            <td><div id="s_2_tit"></div></td>
+            <td><div id="s_2_val"></div></td>
+            <td><div id="s_2_rel"></div></td>
+            <td><div id="s_2_fec"></div></td>
+          </tr>
+        </table>
+		
+        <div class="cotiztable-item1">Futuros MATba</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="s_3_tit"></div></td>
+            <td><div id="s_3_val"></div></td>
+            <td><div id="s_3_rel"></div></td>
+            <td><div id="s_3_fec"></div></td>
+          </tr>
+        </table>
+        
+         <div class="cotiztable-item1">FOB MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Embarque </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="s_4_tit"></div></td>
+            <td><div id="s_4_val"></div></td>
+            <td><div id="s_4_rel"></div></td>
+            <td><div id="s_4_fec"></div></td>
+          </tr>
+        </table>
+        
+        <div class="cotiztable-item1">CBOT</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="s_5_tit"></div></td>
+            <td><div id="s_5_val"></div></td>
+            <td><div id="s_5_rel"></div></td>
+            <td><div id="s_5_fec"></div></td>
+          </tr>
+        </table>
+        
+        <div class="cotiztable-item1">Precios MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Resol. 42/07	</td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="s_6_tit"></div></td>
+            <td><div id="s_6_val"></div></td>
+            <td><div id="s_6_rel"></div></td>
+            <td><div id="s_6_fec"></div></td>
+          </tr>
+        </table>
+        
+        
+    </div>
+    <div id="tab2" class="tab_content">
+       <!--Content-->
+	</div>
+</div>
+
+<div class="tab_container">
+    <div id="girasol" class="tab_content">
+        <!--Content-->
+        <div class="cotiztable-item1">Disponible</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Mercado </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="g_1_tit"></div></td>
+            <td><div id="g_1_val"></div></td>
+            <td><div id="g_1_rel"></div></td>
+            <td><div id="g_1_fec"></div></td>
+          </tr>
+          <tr>
+            <td><div id="g_2_tit"></div></td>
+            <td><div id="g_2_val"></div></td>
+            <td><div id="g_2_rel"></div></td>
+            <td><div id="g_2_fec"></div></td>
+          </tr>
+        </table>
+		
+        <div class="cotiztable-item1">Futuros MATba</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Posición </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="g_3_tit"></div></td>
+            <td><div id="g_3_val"></div></td>
+            <td><div id="g_3_rel"></div></td>
+            <td><div id="g_3_fec"></div></td>
+          </tr>
+        </table>
+        
+         <div class="cotiztable-item1">FOB MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Embarque </td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="g_4_tit"></div></td>
+            <td><div id="g_4_val"></div></td>
+            <td><div id="g_4_rel"></div></td>
+            <td><div id="g_4_fec"></div></td>
+          </tr>
+        </table>
+        
+        
+        <div class="cotiztable-item1">Precios MAGyP</div>
+        <table border="0" cellspacing="0" cellpadding="0" class="cotiztable">
+          <tr>
+            <td class="item2">Resol. 42/07	</td>
+            <td class="precio">Precio</td>
+            <td class="var">Var.</td>
+            <td class="fecha">Fecha</td>
+          </tr>
+          <tr>
+            <td><div id="g_6_tit"></div></td>
+            <td><div id="g_6_val"></div></td>
+            <td><div id="g_6_rel"></div></td>
+            <td><div id="g_6_fec"></div></td>
+          </tr>
+        </table>
+        
+        
+    </div>
+    <div id="tab2" class="tab_content">
+       <!--Content-->
+	</div>
+</div>
+
+</div><!-- /flash-cotiz-tab --> 
+    
+    <br><br>
+&nbsp;&nbsp;&nbsp;<a href="https://twitter.com/share?url=http://www.bolsadecereales.org" class="twitter-share-button" data-lang="es">Tweet</a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    
+    
+    
+    </div><!--main-->
+    
+    <a href="index.html" class="ui-btn ui-icon-back ui-btn-icon-left">Volver</a>
+            
+    </div>
+
+</body>
+</html>

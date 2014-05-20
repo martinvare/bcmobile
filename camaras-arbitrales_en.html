@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bolsa de Cereales </title>
+		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="themes/bc.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+
+    <script>
+    $(document).ready(function()
+{
+	$(".tab_content").hide();
+	$("ul.tabs li:first").addClass("active").show();
+	$(".tab_content:first").show();
+
+	$("ul.tabs li").click(function()
+       {
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content").hide();
+
+		var activeTab = $(this).find("a").attr("href");
+		$(activeTab).fadeIn();
+		return false;
+	});
+}); 
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/camara-arbitral-xml.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var pubDate = "Data updated at " + $(xml).find('pubDate').text();
+					var escribe = '';
+					$( "#pub_date" ).append(pubDate);
+                    
+					escribe = '';
+					$(xml).find('puerto').each(function(){
+						npuerto = $(this).children('nombre').text();
+						//npuerto = $(this).attr('nombre').text();
+						//alert(npuerto);
+
+						//escribe =  escribe + '<div data-role="collapsible" data-theme="a" data-content-theme="a">';
+						//escribe =  escribe + '<h1>' + npuerto + '</h1>';
+						escribe = '';
+						$(this).find('cereal').each(function(){
+							
+							escribe = escribe + '<tr>';
+							escribe = escribe + '<td>' + $(this).children('nombre').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos_anterior').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos_variacion').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares_anterior').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares_variacion').text() + '</td>';
+							escribe = escribe + '</tr>';
+
+								
+	                    });
+
+						$("[id='escribediv "+npuerto+"']").append(escribe);
+
+                    });
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+	
+	</script>
+        
+
+		
+
+	</head>
+	<body>
+		
+
+ 
+        
+ <div data-role="page" id="pageone">
+ 
+  <div data-role="header">
+    <h1>Arbitration chambers
+    <a href="camaras-arbitrales.html" class="ids1">Español</a>
+        <a href="camaras-arbitrales_en.html" class="ids2">English</a>
+    </h1>
+        <a href="index_en.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Home</a>
+
+        
+
+        
+
+ </div>
+         
+
+  
+   <div data-role="main" class="ui-content">
+    
+	<h4 id="pub_date"></h4>
+
+
+    <div id="escribediv"></div>
+
+     <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Buenos Aires</h1>
+      <table data-role="table" class="ui-responsive">
+      <thead>
+        <tr>
+          <th>Product</th> 
+          <th>$Prev</th>
+          <th>$Current</th>
+          <th>$Var%</th>
+          <th>Usd Prev</th>
+          <th>Usd Current</th>
+          <th>Usd Var%</th>
+        </tr>
+      </thead>
+      <tbody id="escribediv Buenos Aires">
+      </tbody>
+    </table>
+      
+    
+    </div>
+    
+    
+         <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Quequen</h1>
+      
+      <table data-role="table" class="ui-responsive">
+      <thead>
+        <tr>
+          <th>Product</th> 
+          <th>$Prev</th>
+          <th>$Current</th>
+          <th>$Var%</th>
+          <th>Usd Prev</th>
+          <th>Usd Current</th>
+          <th>Usd Var%</th>
+        </tr>
+      </thead>
+      <tbody id="escribediv Quequén">
+      </tbody>
+    </table>
+      
+    
+    </div>
+    
+    
+    
+    
+         <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Rosario</h1>
+      
+      <table data-role="table" class="ui-responsive">
+      <thead>
+        <tr>
+          <th>Product</th> 
+          <th>$Prev</th>
+          <th>$Current</th>
+          <th>$Var%</th>
+          <th>Usd Prev</th>
+          <th>Usd Current</th>
+          <th>Usd Var%</th>
+        </tr>
+      </thead>
+      <tbody id="escribediv Rosario">
+      </tbody>
+    </table>
+      
+    
+    </div>
+
+
+
+         <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Bahia Blanca</h1>
+      
+      <table data-role="table" class="ui-responsive">
+      <thead>
+        <tr>
+          <th>Product</th> 
+          <th>$Prev</th>
+          <th>$Current</th>
+          <th>$Var%</th>
+          <th>Usd Prev</th>
+          <th>Usd Current</th>
+          <th>Usd Var%</th>
+        </tr>
+      </thead>
+      <tbody id="escribediv Bahía Blanca">
+      </tbody>
+    </table>
+      
+    
+    </div>
+    
+    
+             <div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>Cámara de Cereales y afines de Córdoba</h1>
+      
+      <table data-role="table" class="ui-responsive">
+      <thead>
+        <tr>
+          <th>Product</th> 
+          <th>$Prev</th>
+          <th>$Current</th>
+          <th>$Var%</th>
+          <th>Usd Prev</th>
+          <th>Usd Current</th>
+          <th>Usd Var%</th>
+        </tr>
+      </thead>
+      <tbody id="escribediv Cámara de Cereales y Afines de Córdoba">
+      </tbody>
+    </table>
+      
+    
+    </div>
+
+
+  </div><!--main-->
+  
+  &nbsp;&nbsp;&nbsp;<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+    
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	
+        	
+
+    <a href="index_en.html" class="ui-btn ui-icon-back ui-btn-icon-left">Back</a>
+
+            
+            
+	</div>
+	</body>
+</html>

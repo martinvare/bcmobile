@@ -5,3 +5,161 @@ table.datos th {border-bottom: 1px solid #d6d6d6;}
 table.datos tr:nth-child(even) {background:#E5E9E9;}
 table.datos tr:last-child {background:#6C9;}
 table.datos thead { display:none}
+
+
+
+#flash-cotiz-tab { margin-top:20px}
+
+.cotiztable{ font-size:0.8em;  border-left: 1px solid #E5E9E9; border-right:1px solid #E5E9E9; width:100% }
+.cotiztable td{ padding-left:5px}
+.cotiztable-item1{ background-color:#888888; font-size:12px; color:#FFF; line-height:20px; padding-left:5px; width:100%;}
+.cotiztable td.item2 { background-color:#E5E9E9; color:#000; line-height:20px;  width:20%; font-weight:bold;}
+.cotiztable td.precio { background-color:#E5E9E9; color:#000; line-height:20px;  width:15%; font-weight:bold;}
+.cotiztable td.var { background-color:#E5E9E9; color:#000; line-height:20px;  width:20%; font-weight:bold;}
+.cotiztable td.fecha { background-color:#E5E9E9; color:#000; line-height:20%; font-weight:bold;}
+
+
+
+.cotiztable tbody th, tbody td {border-bottom: solid 1px #E5E9E9;}
+
+.cotiztable tbody th {white-space: nowrap; }
+
+.cotiztable tbody th a {color:#333;}
+
+.cotiztable .odd {}
+
+.cotiztable tbody tr:hover {background:#fafafa}
+
+ul.tabs {
+
+	margin: 0;
+
+	padding: 0;
+
+	float: left;
+
+	list-style: none;
+
+	width: 100%;	
+
+	background-color: #959595;
+
+	 background: -moz-linear-gradient(top, #fff , #EDEDED);
+
+	 background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff),  to(#EDEDED));
+
+ font-size:0.8em; line-height:28px;
+
+ 
+
+ -webkit-border-top-left-radius: 8px;
+
+-webkit-border-top-right-radius: 8px;
+
+-moz-border-radius-topleft: 8px;
+
+-moz-border-radius-topright: 8px;
+
+border-top-left-radius: 8px;
+
+border-top-right-radius: 8px;
+
+}
+
+ul.tabs li {
+
+	float: left;
+
+	margin: 0;
+
+	padding: 0;
+
+	height: 28px;
+
+	line-height: 28x;
+
+	margin-bottom: 0px;
+
+	overflow: hidden;
+
+	position: relative;
+
+	 background: -moz-linear-gradient(top, #fff , #EDEDED);
+
+	 background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff),  to(#EDEDED));
+
+}
+
+ul.tabs li a {
+
+	text-decoration: none;
+
+	color: #000;
+
+	display: block;
+
+	font-size: 1.2em;
+
+	padding: 0 10px;
+
+	outline: none;
+
+}
+
+ul.tabs li a:hover {
+
+		 background-color: #959595;
+
+ background: -moz-linear-gradient(top, #959595 , #777777);
+
+ background: -webkit-gradient(linear, 0 0, 0 100%, from(#959595),  to(#777777));
+
+ color:#fff;
+
+}
+
+html ul.tabs li.active, html ul.tabs li.active a  {
+
+		color:#fff;
+
+}
+
+html ul.tabs li.active, html ul.tabs li.active a:hover  {
+
+		 background-color: #959595;
+
+ background: -moz-linear-gradient(top, #959595 , #777777);
+
+ background: -webkit-gradient(linear, 0 0, 0 100%, from(#959595),  to(#777777));
+
+ color:#fff;
+
+	
+
+}
+
+
+/*CSS para el contenido del tab*/
+
+
+
+ .tab_container {
+
+	border-top: none;
+
+	overflow: hidden;
+
+	float: left; width: 100%;
+
+	background: #fff;
+
+}
+
+.tab_content {
+
+	padding: 0;
+
+	}
+	
+a.ids1 { position:absolute; top:10px; right:70px; font-size:12px; color:#fff !important}
+a.ids2 { position:absolute; top:10px; right:10px; font-size:12px; color:#fff !important}	
