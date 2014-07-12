@@ -11,79 +11,13 @@
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
 
-		<script type="text/javascript" language="javascript">
-		Number.prototype.formatMoney = function(c, d, t){
-		var n = this, 
-			c = isNaN(c = Math.abs(c)) ? 2 : c, 
-			d = d == undefined ? "." : d, 
-			t = t == undefined ? "," : t, 
-			s = n < 0 ? "-" : "", 
-			i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-			j = (j = i.length) > 3 ? j % 3 : 0;
-		   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-		 };		
-
-		function calcula(){
-			region = document.getElementById('region').value;
-			cereal = document.getElementById('cultivo').value;
-			document.getElementById("imgzona").src="imagenes/pas" + region + ".jpg";
-			//alert(cereal);
-			//alert(region);
-			$( "#cerealzona").text(cereal + ": " +  window[region + "_value"]);
-
-			for (var i=1; i<8; i++) {
-				valor = window[cereal + "_" + region + "_attr_" + i];
-				$( "#tz"+ i).text(Number(valor).formatMoney(0, '.', ','));
-				$( "#tp"+ i).text(Number(window[cereal + "_16_attr_" + i]).formatMoney(0, '.', ','));
-			}
-			//alert(TRIGO_1_attr_1);
-		}
-
-        $(document).ready(function(){
-            $.ajax({
-                type: "GET",
-                //url: "BookList.xml",
-                url: "http://www.bolsadecereales.org/pagrs-xml.xml",
-                dataType: "xml",
-                success: function(xml){
-                    
-					var title_xml = $(xml).find('title').text();
-					$( "#tit_xml" ).append(title_xml);
-                    
-					$(xml).find('zona').each(function(){
-						nzona = $(this).find('nombre').text();
-						nzona_id = $(this).find('nombre').attr("id");
-						window[nzona_id + "_value"] = $(this).find('nombre').text();
-						if(nzona_id != 1 && nzona_id != 16) $("#region").append('<option value="' + nzona_id + '">' + nzona + '</option>');
-
-                        var valor = {};
-						$(this).find('cereal').each(function(){
-							var cerealName = $(this).attr("name");
-                            if(nzona == "NOA" && cerealName != "TRIGO")	$("#cultivo").append('<option value="' + cerealName + '">' + cerealName + '</option>');
-                            for (var i=1; i<8; i++) {
-								window[cerealName + "_" + nzona_id + "_attr_" + i] = $(this).find('atributo').eq(i).text();
-							}
-                        });
-                    });
-					calcula();
-                },
-                error: function() {
-                alert("An error occurred while processing XML file.");
-                }
-            });
-		});
-        </script>
-        
-
-		
-
 	</head>
 	<body>
 		
 
  
         
- <div data-role="page" id="pageone">
+ <div data-role="pages" id="pageone">
  
   <div data-role="header">
     <h1>Panorama Agricola Semanal
@@ -213,6 +147,25 @@
     </div>
 
 
+<div data-role="collapsible" data-theme="a" data-content-theme="a">
+      <h1>HIstorico Pais</h1>
+      
+     <table data-role="table"  class="ui-responsive ui-shadow datos" id="myTable" >
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id='tablahistorico'>
+
+ </tbody>
+    </table>
+    </div>
+
+
+
+
   </div><!--main-->
   
 &nbsp;&nbsp;&nbsp;<a href="https://twitter.com/share?url=http://www.bolsadecereales.org" class="twitter-share-button" data-lang="es">Tweet</a>
@@ -226,5 +179,93 @@
             
             
 	</div>
+
+
+		<script type="text/javascript" language="javascript">
+		Number.prototype.formatMoney = function(c, d, t){
+		var n = this, 
+			c = isNaN(c = Math.abs(c)) ? 2 : c, 
+			d = d == undefined ? "." : d, 
+			t = t == undefined ? "," : t, 
+			s = n < 0 ? "-" : "", 
+			i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+			j = (j = i.length) > 3 ? j % 3 : 0;
+		   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+		 };		
+
+		function calcula(){
+			region = document.getElementById('region').value;
+			cereal = document.getElementById('cultivo').value;
+			document.getElementById("imgzona").src="imagenes/pas" + region + ".jpg";
+			//alert(cereal);
+			//alert(region);
+			$( "#cerealzona").text(cereal + ": " +  window[region + "_value"]);
+
+			for (var i=1; i<8; i++) {
+				valor = window[cereal + "_" + region + "_attr_" + i];
+				$( "#tz"+ i).text(Number(valor).formatMoney(0, '.', ','));
+				$( "#tp"+ i).text(Number(window[cereal + "_16_attr_" + i]).formatMoney(0, '.', ','));
+			}
+			//alert(TRIGO_1_attr_1);
+		}
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/pagrs-xml.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var title_xml = $(xml).find('title').text();
+					$( "#tit_xml" ).append(title_xml);
+                    
+					$(xml).find('zona').each(function(){
+						nzona = $(this).find('nombre').text();
+						nzona_id = $(this).find('nombre').attr("id");
+						window[nzona_id + "_value"] = $(this).find('nombre').text();
+						if(nzona_id != 1 && nzona_id != 16) $("#region").append('<option value="' + nzona_id + '">' + nzona + '</option>');
+
+                        var valor = {};
+						$(this).find('cereal').each(function(){
+							var cerealName = $(this).attr("name");
+                            if(nzona == "NOA" && cerealName != "TRIGO")	$("#cultivo").append('<option value="' + cerealName + '">' + cerealName + '</option>');
+                            for (var i=1; i<8; i++) {
+								window[cerealName + "_" + nzona_id + "_attr_" + i] = $(this).find('atributo').eq(i).text();
+							}
+                        });
+                    });
+					calcula();
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+
+
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/xmlpashistorico.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var textoe = "";
+					$(xml).find('item').each(function(){
+						textoe = textoe + '<tr><td><b>' + $(this).attr("iditem") + '</b></td>';
+						$(this).find('title').each(function(){
+							textoe = textoe + '<td>'+$(this).text()+'</td>';
+                        });
+						textoe = textoe + '</tr>';
+                    });
+					$("#tablahistorico").append(textoe);
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+
+		});
+        </script>
 	</body>
 </html>

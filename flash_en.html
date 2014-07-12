@@ -11,64 +11,7 @@
 		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
-        
-    	
-        
-        
-    <script>
-    $(document).ready(function()
-{
-	$(".tab_content").hide();
-	$("ul.tabs li:first").addClass("active").show();
-	$(".tab_content:first").show();
 
-	$("ul.tabs li").click(function()
-       {
-		$("ul.tabs li").removeClass("active");
-		$(this).addClass("active");
-		$(".tab_content").hide();
-
-		var activeTab = $(this).find("a").attr("href");
-		$(activeTab).fadeIn();
-		return false;
-	});
-}); 
-
-        $(document).ready(function(){
-            $.ajax({
-                type: "GET",
-                //url: "BookList.xml",
-                url: "http://www.bolsadecereales.org/flash-cotizaciones.xml",
-                dataType: "xml",
-                success: function(xml){
-                    
-					var pubDate = "Data updated at " + $(xml).find('pubDate').text();
-					var escribe = '';
-					$( "#pub_date" ).append(pubDate);
-                    
-					$(xml).find('cereal').each(function(){
-						ncereal = $(this).find('nombre').text();
-						
-						$(this).find('cotizacion').each(function(){
-							
-								//$(this).find('nombre').attr("id")
-									//alert($(this).find('titulo').attr("id"));
-									$( "#" + $(this).find('titulo').attr("id") ).append($(this).find('titulo').text());
-									$( "#" + $(this).find('valor').attr("id") ).append($(this).find('valor').text());
-									$( "#" + $(this).find('relacion_anterior').attr("id") ).append('<img src="imagenes/'+$(this).find('relacion_anterior').text()+'.png" />');
-									$( "#" + $(this).find('Date').attr("id") ).append($(this).find('Date').text());
-								
-	                    });
-                    });
-					//$("#escribediv" ).append(escribe);
-                },
-                error: function() {
-                alert("An error occurred while processing XML file.");
-                }
-            });
-		});
-	
-	</script>
         
 	</head>
 	<body>
@@ -479,6 +422,61 @@
     <a href="index.html" class="ui-btn ui-icon-back ui-btn-icon-left">Back</a>
             
     </div>
+    
+        <script>
+    $(document).ready(function()
+{
+	$(".tab_content").hide();
+	$("ul.tabs li:first").addClass("active").show();
+	$(".tab_content:first").show();
+
+	$("ul.tabs li").click(function()
+       {
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content").hide();
+
+		var activeTab = $(this).find("a").attr("href");
+		$(activeTab).fadeIn();
+		return false;
+	});
+}); 
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/flash-cotizaciones.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var pubDate = "Data updated at " + $(xml).find('pubDate').text();
+					var escribe = '';
+					$( "#pub_date" ).append(pubDate);
+                    
+					$(xml).find('cereal').each(function(){
+						ncereal = $(this).find('nombre').text();
+						
+						$(this).find('cotizacion').each(function(){
+							
+								//$(this).find('nombre').attr("id")
+									//alert($(this).find('titulo').attr("id"));
+									$( "#" + $(this).find('titulo').attr("id") ).append($(this).find('titulo').text());
+									$( "#" + $(this).find('valor').attr("id") ).append($(this).find('valor').text());
+									$( "#" + $(this).find('relacion_anterior').attr("id") ).append('<img src="imagenes/'+$(this).find('relacion_anterior').text()+'.png" />');
+									$( "#" + $(this).find('Date').attr("id") ).append($(this).find('Date').text());
+								
+	                    });
+                    });
+					//$("#escribediv" ).append(escribe);
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+	
+	</script>
 
 </body>
 </html>

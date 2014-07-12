@@ -15,60 +15,7 @@
     	
         
         
-    <script>
-    $(document).ready(function()
-{
-	$(".tab_content").hide();
-	$("ul.tabs li:first").addClass("active").show();
-	$(".tab_content:first").show();
 
-	$("ul.tabs li").click(function()
-       {
-		$("ul.tabs li").removeClass("active");
-		$(this).addClass("active");
-		$(".tab_content").hide();
-
-		var activeTab = $(this).find("a").attr("href");
-		$(activeTab).fadeIn();
-		return false;
-	});
-}); 
-
-        $(document).ready(function(){
-            $.ajax({
-                type: "GET",
-                //url: "BookList.xml",
-                url: "http://www.bolsadecereales.org/flash-cotizaciones.xml",
-                dataType: "xml",
-                success: function(xml){
-                    
-					var pubDate = "Datos al " + $(xml).find('pubDate').text();
-					var escribe = '';
-					$( "#pub_date" ).append(pubDate);
-                    
-					$(xml).find('cereal').each(function(){
-						ncereal = $(this).find('nombre').text();
-						
-						$(this).find('cotizacion').each(function(){
-							
-								//$(this).find('nombre').attr("id")
-									//alert($(this).find('titulo').attr("id"));
-									$( "#" + $(this).find('titulo').attr("id") ).append($(this).find('titulo').text());
-									$( "#" + $(this).find('valor').attr("id") ).append($(this).find('valor').text());
-									$( "#" + $(this).find('relacion_anterior').attr("id") ).append('<img src="imagenes/'+$(this).find('relacion_anterior').text()+'.png" />');
-									$( "#" + $(this).find('fecha').attr("id") ).append($(this).find('fecha').text());
-								
-	                    });
-                    });
-					//$("#escribediv" ).append(escribe);
-                },
-                error: function() {
-                alert("An error occurred while processing XML file.");
-                }
-            });
-		});
-	
-	</script>
         
 	</head>
 	<body>
@@ -76,7 +23,7 @@
 
  
         
- <div data-role="page" id="pageone">
+ <div data-role="pages" id="pageone">
  
   <div data-role="header">
     <h1>Flash de Cotizaciones
@@ -84,6 +31,7 @@
         <a href="flash_en.html" class="ids2">English</a>
     </h1>
         <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
+        
   </div>
          
 
@@ -94,7 +42,10 @@
     <div id="flash-cotiz-tab">
 
 	<h4 id="pub_date"></h4>
-
+    
+	
+	 <a href="#" class="ui-btn ui-corner-all ui-icon-refresh ui-btn-icon-text" onClick="window.location.reload()">Refresh Icon</a>
+     
 <ul class="tabs">
     <li><a href="#trigo">TRIGO</a></li>
     <li><a href="#maiz">MAÍZ</a></li>
@@ -479,6 +430,61 @@
     <a href="index.html" class="ui-btn ui-icon-back ui-btn-icon-left">Volver</a>
             
     </div>
+    
+        <script>
+    $(document).ready(function()
+{
+	$(".tab_content").hide();
+	$("ul.tabs li:first").addClass("active").show();
+	$(".tab_content:first").show();
+
+	$("ul.tabs li").click(function()
+       {
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content").hide();
+
+		var activeTab = $(this).find("a").attr("href");
+		$(activeTab).fadeIn();
+		return false;
+	});
+}); 
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/flash-cotizaciones.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var pubDate = "Datos al " + $(xml).find('pubDate').text();
+					var escribe = '';
+					$( "#pub_date" ).append(pubDate);
+                    
+					$(xml).find('cereal').each(function(){
+						ncereal = $(this).find('nombre').text();
+						
+						$(this).find('cotizacion').each(function(){
+							
+								//$(this).find('nombre').attr("id")
+									//alert($(this).find('titulo').attr("id"));
+									$( "#" + $(this).find('titulo').attr("id") ).append($(this).find('titulo').text());
+									$( "#" + $(this).find('valor').attr("id") ).append($(this).find('valor').text());
+									$( "#" + $(this).find('relacion_anterior').attr("id") ).append('<img src="imagenes/'+$(this).find('relacion_anterior').text()+'.png" />');
+									$( "#" + $(this).find('fecha').attr("id") ).append($(this).find('fecha').text());
+								
+	                    });
+                    });
+					//$("#escribediv" ).append(escribe);
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+	
+	</script>
 
 </body>
 </html>

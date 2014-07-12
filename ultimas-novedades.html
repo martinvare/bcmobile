@@ -11,33 +11,13 @@
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
         
-        <script language="javascript">
-        $(document).ready(function(){
-            $.ajax({
-                type: "GET",
-                url: "http://www.bolsadecereales.org/ultimas-novedades-xml.xml",
-                dataType: "xml",
-                success: function(xml){
-                    
-					$(xml).find('data').each(function(){
-						linkk = $(this).find('link').text();
-						titulo = '<li><a href="' + linkk +'">' + '<h2>' + $(this).find('title').text() + '</h2></a><a href="'+linkk+'">Ver nota</a></li>';
-						$("#listcontent").append(titulo).listview('refresh');
-                    });
-                },
-                error: function() {
-                alert("An error occurred while processing XML file.");
-                }
-            });
-		});
-        </script>
-		
+       
         
 	</head>
 	<body>
  
         
-<div data-role="page" id="pageone">
+<div data-role="pages" id="pageone">
  
   <div data-role="header">
     <h1>Novedades Institucionales
@@ -60,5 +40,26 @@
     <a href="index.html" class="ui-btn ui-icon-back ui-btn-icon-left">Volver</a>
             
 	</div>
+     <script language="javascript">
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "http://www.bolsadecereales.org/ultimas-novedades-xml.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					$(xml).find('data').each(function(){
+						linkk = $(this).find('link').text();
+						titulo = '<li><a href="' + linkk +'">' + '<h2>' + $(this).find('title').text() + '</h2></a><a href="'+linkk+'">Ver nota</a></li>';
+						$("#listcontent").append(titulo).listview('refresh');
+                    });
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+        </script>
+		
 </body>
 </html>

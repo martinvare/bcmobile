@@ -11,83 +11,13 @@
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
 
-    <script>
-    $(document).ready(function()
-{
-	$(".tab_content").hide();
-	$("ul.tabs li:first").addClass("active").show();
-	$(".tab_content:first").show();
-
-	$("ul.tabs li").click(function()
-       {
-		$("ul.tabs li").removeClass("active");
-		$(this).addClass("active");
-		$(".tab_content").hide();
-
-		var activeTab = $(this).find("a").attr("href");
-		$(activeTab).fadeIn();
-		return false;
-	});
-}); 
-
-        $(document).ready(function(){
-            $.ajax({
-                type: "GET",
-                //url: "BookList.xml",
-                url: "http://www.bolsadecereales.org/camara-arbitral-xml.xml",
-                dataType: "xml",
-                success: function(xml){
-                    
-					var pubDate = "Actualizado al " + $(xml).find('pubDate').text();
-					var escribe = '';
-					$( "#pub_date" ).append(pubDate);
-                    
-					escribe = '';
-					$(xml).find('puerto').each(function(){
-						npuerto = $(this).children('nombre').text();
-						//npuerto = $(this).attr('nombre').text();
-						//alert(npuerto);
-
-						//escribe =  escribe + '<div data-role="collapsible" data-theme="a" data-content-theme="a">';
-						//escribe =  escribe + '<h1>' + npuerto + '</h1>';
-						escribe = '';
-						$(this).find('cereal').each(function(){
-							
-							escribe = escribe + '<tr>';
-							escribe = escribe + '<td>' + $(this).children('nombre').text() + '</td>';
-							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos_anterior').text() + '</td>';
-							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos').text() + '</td>';
-							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos_variacion').text() + '</td>';
-							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares_anterior').text() + '</td>';
-							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares').text() + '</td>';
-							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares_variacion').text() + '</td>';
-							escribe = escribe + '</tr>';
-
-								
-	                    });
-
-						$("[id='escribediv "+npuerto+"']").append(escribe);
-
-                    });
-                },
-                error: function() {
-                alert("An error occurred while processing XML file.");
-                }
-            });
-		});
-	
-	</script>
-        
-
-		
-
 	</head>
 	<body>
 		
 
  
         
- <div data-role="page" id="pageone">
+ <div data-role="pages" id="pageone">
  
   <div data-role="header">
     <h1>Camaras Arbitrales
@@ -241,5 +171,72 @@
             
             
 	</div>
+    
+        <script>
+    $(document).ready(function()
+{
+	$(".tab_content").hide();
+	$("ul.tabs li:first").addClass("active").show();
+	$(".tab_content:first").show();
+
+	$("ul.tabs li").click(function()
+       {
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+		$(".tab_content").hide();
+
+		var activeTab = $(this).find("a").attr("href");
+		$(activeTab).fadeIn();
+		return false;
+	});
+}); 
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                //url: "BookList.xml",
+                url: "http://www.bolsadecereales.org/camara-arbitral-xml.xml",
+                dataType: "xml",
+                success: function(xml){
+                    
+					var pubDate = "Actualizado al " + $(xml).find('pubDate').text();
+					var escribe = '';
+					$( "#pub_date" ).append(pubDate);
+                    
+					escribe = '';
+					$(xml).find('puerto').each(function(){
+						npuerto = $(this).children('nombre').text();
+						//npuerto = $(this).attr('nombre').text();
+						//alert(npuerto);
+
+						//escribe =  escribe + '<div data-role="collapsible" data-theme="a" data-content-theme="a">';
+						//escribe =  escribe + '<h1>' + npuerto + '</h1>';
+						escribe = '';
+						$(this).find('cereal').each(function(){
+							
+							escribe = escribe + '<tr>';
+							escribe = escribe + '<td>' + $(this).children('nombre').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos_anterior').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_pesos_variacion').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares_anterior').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares').text() + '</td>';
+							escribe = escribe + '<td>' + $(this).children('cotizacion_dolares_variacion').text() + '</td>';
+							escribe = escribe + '</tr>';
+
+								
+	                    });
+
+						$("[id='escribediv "+npuerto+"']").append(escribe);
+
+                    });
+                },
+                error: function() {
+                alert("An error occurred while processing XML file.");
+                }
+            });
+		});
+	
+	</script>
 	</body>
 </html>

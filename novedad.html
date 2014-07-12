@@ -11,7 +11,42 @@
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
 
-        <script language="javascript">
+  
+
+	</head>
+	<body>
+        
+ <div data-role="pages" id="pageone">
+ 
+  <div data-role="header">
+    <h1>Noticia</h1>
+        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
+ </div>
+         
+
+  
+   <div data-role="main" class="ui-content">
+   
+   
+  
+    <span id="notaimagen"></span>
+    <h2 id="notatit"></h2>
+       
+    <p id="notafuente"></p>
+
+	<p id="notadescripcion"> </p>
+
+  </div><!--main-->
+<a href="#" class="ui-btn ui-icon-back ui-btn-icon-left">Volver</a>
+	
+        	
+
+
+            
+            
+	</div>
+    
+          <script language="javascript">
 		function getParameterByName(name) {
 			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -45,38 +80,5 @@
             });
 		});
         </script>
-
-	</head>
-	<body>
-        
- <div data-role="page" id="pageone">
- 
-  <div data-role="header">
-    <h1>Noticia</h1>
-        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
- </div>
-         
-
-  
-   <div data-role="main" class="ui-content">
-   
-   
-  
-    <span id="notaimagen"></span>
-    <h2 id="notatit"></h2>
-       
-    <p id="notafuente"></p>
-
-	<p id="notadescripcion"> </p>
-
-  </div><!--main-->
-<a href="#" class="ui-btn ui-icon-back ui-btn-icon-left">Volver</a>
-	
-        	
-
-
-            
-            
-	</div>
 	</body>
 </html>

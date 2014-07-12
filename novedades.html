@@ -10,8 +10,31 @@
 		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+		
         
-        <script language="javascript">
+	</head>
+	<body>
+ 
+        
+<div data-role="pages" id="pageone">
+ 
+  <div data-role="header">
+    <h1>Noticias</h1>
+        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
+ </div>
+         
+   <div data-role="main" class="ui-content">
+   
+   <ul data-role="listview" data-inset="true" id="listcontent">
+
+   </ul>
+   
+
+  </div><!--main-->
+	
+            
+	</div>
+            <script language="javascript">
         $(document).ready(function(){
             $.ajax({
                 type: "GET",
@@ -33,29 +56,5 @@
             });
 		});
         </script>
-		
-        
-	</head>
-	<body>
- 
-        
-<div data-role="page" id="pageone">
- 
-  <div data-role="header">
-    <h1>Noticias</h1>
-        <a href="index.html" class="ui-btn ui-btn-a ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Inicio</a>
- </div>
-         
-   <div data-role="main" class="ui-content">
-   
-   <ul data-role="listview" data-inset="true" id="listcontent">
-
-   </ul>
-   
-
-  </div><!--main-->
-	
-            
-	</div>
 </body>
 </html>
